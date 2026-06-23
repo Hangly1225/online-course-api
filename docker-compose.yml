@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: ocms_postgres
+    environment:
+      POSTGRES_DB: ocms_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5433:5432"
+    volumes:
+      - ocms_data:/var/lib/postgresql/data
+
+volumes:
+  ocms_data:
