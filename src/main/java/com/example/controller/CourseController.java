@@ -1,6 +1,7 @@
 package com.example.controller;
 
-import com.example.dto.course.*;
+import com.example.dto.course.CourseRequest;
+import com.example.dto.course.CourseResponse;
 import com.example.service.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -37,13 +38,17 @@ public class CourseController {
     @PutMapping("/{id}")
     public CourseResponse updateCourse(
             @PathVariable Long id,
-            @Valid @RequestBody CourseRequest request
+            @Valid @RequestBody CourseRequest request,
+            Authentication authentication
     ) {
-        return courseService.updateCourse(id, request);
+        return courseService.updateCourse(id, request, authentication);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCourse(@PathVariable Long id) {
-        courseService.deleteCourse(id);
+    public void deleteCourse(
+            @PathVariable Long id,
+            Authentication authentication
+    ) {
+        courseService.deleteCourse(id, authentication);
     }
 }

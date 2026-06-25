@@ -1,10 +1,11 @@
-// src/main/java/com/example/ocms/controller/LessonController.java
 package com.example.controller;
 
-import com.example.dto.lesson.*;
+import com.example.dto.lesson.LessonRequest;
+import com.example.dto.lesson.LessonResponse;
 import com.example.service.LessonService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,9 +20,10 @@ public class LessonController {
     @PostMapping("/courses/{courseId}/lessons")
     public LessonResponse createLesson(
             @PathVariable Long courseId,
-            @Valid @RequestBody LessonRequest request
+            @Valid @RequestBody LessonRequest request,
+            Authentication authentication
     ) {
-        return lessonService.createLesson(courseId, request);
+        return lessonService.createLesson(courseId, request, authentication);
     }
 
     @GetMapping("/courses/{courseId}/lessons")
@@ -29,16 +31,25 @@ public class LessonController {
         return lessonService.getLessonsByCourse(courseId);
     }
 
+    @GetMapping("/lessons/{lessonId}")
+    public LessonResponse getLessonById(@PathVariable Long lessonId) {
+        return lessonService.getLessonById(lessonId);
+    }
+
     @PutMapping("/lessons/{lessonId}")
     public LessonResponse updateLesson(
             @PathVariable Long lessonId,
-            @Valid @RequestBody LessonRequest request
+            @Valid @RequestBody LessonRequest request,
+            Authentication authentication
     ) {
-        return lessonService.updateLesson(lessonId, request);
+        return lessonService.updateLesson(lessonId, request, authentication);
     }
 
     @DeleteMapping("/lessons/{lessonId}")
-    public void deleteLesson(@PathVariable Long lessonId) {
-        lessonService.deleteLesson(lessonId);
+    public void deleteLesson(
+            @PathVariable Long lessonId,
+            Authentication authentication
+    ) {
+        lessonService.deleteLesson(lessonId, authentication);
     }
 }

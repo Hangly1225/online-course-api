@@ -9,4 +9,6 @@ import java.util.List;
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
     List<Course> findByStatus(CourseStatus status);
+
+    List<Course> findByInstructorId(Long instructorId);
 }

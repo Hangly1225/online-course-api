@@ -11,4 +11,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Optional<Review> findByStudentIdAndCourseId(Long studentId, Long courseId);
 
     List<Review> findByCourseId(Long courseId);
+
+    void deleteByCourseId(Long courseId);
 }
